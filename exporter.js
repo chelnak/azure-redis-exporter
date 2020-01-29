@@ -18,15 +18,29 @@ const dest_client = redis.createClient(port, dest.host,
 
 const d = dump(source_client, '*');
 
-bar.start(100, 0);
-d.on('data', function (key, data, ttl) {
-    bar.increment()
-    dest_client.restore(key, ttl, data);
-}).on('error', function (err) {
-    console.error(`An error occured while processing: ${err}`)
-}).on('end', function () {
-    bar.stop();
-    source_client.quit();
-    dest_client.quit();
-    console.log('Migration Complete!')
+source_client.dbsize( function(err, size) {
+    if (err) {
+        console.error(`An error occured in the calback: ${err}`)
+        return;
+    }
+
+    bar.start(size, 0);
+
+    d.on('data', function (key, data, ttl) {
+        bar.increment()
+        dest_client.restore(key, ttl, data, function(err) {
+            if (err) {
+                throw Error(`An error occured while restoring a key: ${err}`);
+            }
+        });
+    }).on('error', function (err) {
+        console.error(`An error occured while processing: ${err}`)
+    }).on('end', function () {
+        bar.stop();
+        source_client.quit();
+        dest_client.quit();
+        console.log('Migration Complete!')
+    });
 });
+
+
