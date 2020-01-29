@@ -43,7 +43,7 @@ sourceClient.dbsize((err, size) => {
   dump.on('data', (key, data, ttl) => {
     bar.increment();
     destClient.restore(key, ttl, data, (restoreErr) => {
-      if (err) {
+      if (restoreErr) {
         throw Error(`An error occured while restoring a key: ${restoreErr}`);
       }
     });
