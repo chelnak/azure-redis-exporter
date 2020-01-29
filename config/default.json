@@ -1,0 +1,14 @@
+{
+    "redis": {
+        "port": 6380,
+        "db": 4,
+        "source": {
+            "host": "",
+            "key": ""
+        },
+        "destination": {
+            "host": "",
+            "key": ""
+        }
+    }
+}
