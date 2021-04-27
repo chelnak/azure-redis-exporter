@@ -11,7 +11,7 @@
   "dependencies": {
     "cli-progress": "^3.6.0",
     "config": "^3.2.5",
-    "redis": "^2.8.0",
+    "redis": "^3.1.1",
     "redis-dump-restore": "^0.2.0"
   },
   "devDependencies": {
