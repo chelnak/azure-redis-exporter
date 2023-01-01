@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "cli-progress": "^3.6.0",
-    "config": "^3.2.5",
+    "config": "^3.3.8",
     "redis": "^2.8.0",
     "redis-dump-restore": "^0.2.0"
   },
